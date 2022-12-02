@@ -31,7 +31,7 @@
 (defn win? [our-shape their-shape]
   (= (beats our-shape) their-shape))
 
-(defn outcome [our-shape their-shape]
+(defn determine-outcome [our-shape their-shape]
   (cond
     (win? our-shape their-shape) :win
     (win? their-shape our-shape) :lose
@@ -44,7 +44,7 @@
 
 (defn calculate-score-by-shapes [our-shape their-shape]
   (+ (shape-score our-shape)
-     (case (outcome our-shape their-shape)
+     (case (determine-outcome our-shape their-shape)
        :win 6
        :lose 0
        :draw 3)))
