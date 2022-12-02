@@ -2,12 +2,14 @@
   (:require [advent-of-code.util :as util]
             [clojure.set :as s]))
 
-(def translate-shape-1
+(def translate-their-shape
   {"A" :rock
-   "X" :rock
    "B" :paper
+   "C" :scissors})
+
+(def translate-our-shape
+  {"X" :rock
    "Y" :paper
-   "C" :scissors
    "Z" :scissors})
 
 (defn read-strategy-guide-1 [f]
@@ -15,8 +17,8 @@
        util/read-resource-lines
        (map #(.split % " "))
        (map (fn [[theirs ours]]
-              {:our-shape (translate-shape-1 ours)
-               :their-shape (translate-shape-1 theirs)}))))
+              {:our-shape (translate-our-shape ours)
+               :their-shape (translate-their-shape theirs)}))))
 
 (def beats
   {:rock :scissors
@@ -67,12 +69,9 @@
 
 
 
-(def translate-shape-2
-  {"A" :rock
-   "X" :lose
-   "B" :paper
+(def translate-outcome
+  {"X" :lose
    "Y" :draw
-   "C" :scissors
    "Z" :win})
 
 (defn read-strategy-guide-2 [f]
@@ -80,8 +79,8 @@
        util/read-resource-lines
        (map #(.split % " "))
        (map (fn [[theirs ours]]
-              {:their-shape (translate-shape-2 theirs)
-               :outcome (translate-shape-2 ours)}))))
+              {:their-shape (translate-their-shape theirs)
+               :outcome (translate-outcome ours)}))))
 
 (defn apply-strategy-guide-2 [strategy-guide-file]
   (->> strategy-guide-file
