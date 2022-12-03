@@ -6,3 +6,6 @@
 
 (defn read-resource-lines [f]
   (-> f read-resource string/split-lines))
+
+(defn split-at-middle [vec]
+  (split-at (int (/ (count vec) 2)) vec))
