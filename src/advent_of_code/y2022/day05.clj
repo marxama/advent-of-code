@@ -33,8 +33,8 @@
      :moves (map parse-move-line moves-lines)}))
 
 (defn operate-crane [stacks {:keys [crate-count from to]} keep-order?]
-  (let [items-to-move (->> (get stacks from) (take crate-count) vec)
-        items-to-move (if keep-order? items-to-move (reverse items-to-move))]
+  (let [items-to-move (cond-> (->> (get stacks from) (take crate-count) vec)
+                        (not keep-order?) reverse)]
     (-> stacks
         (update from #(drop crate-count %))
         (update to #(concat items-to-move %)))))
