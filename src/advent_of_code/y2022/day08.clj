@@ -38,7 +38,7 @@
   (->> (iterate #(walk grid % dir) from)
        (take-while some?)))
 
-(defn get-visible-trees-from [{:keys [trees] :as grid} from dir]
+(defn get-visible-trees-from-edge [{:keys [trees] :as grid} from dir]
   (->> (get-all-positions-in-path grid from dir)
        (reduce (fn [{:keys [max-tree-height visible-trees] :as res} tree-pos]
                  (let [tree-height (get-tree-height trees tree-pos)]
@@ -69,10 +69,43 @@
 (defn count-visible-trees [grid]
   (->> (for [pos (get-edge-positions grid)
              :let [dir (determine-dir grid pos)]]
-         (get-visible-trees-from grid pos dir))
+         (get-visible-trees-from-edge grid pos dir))
        (apply concat)
        distinct
        count))
 
 (defn day08_1 []
   (-> "day08_1" read-input count-visible-trees))
+
+;; Courtesy of https://stackoverflow.com/a/30928487/845595
+(defn take-while+
+  [pred coll]
+  (lazy-seq
+   (when-let [[f & r] (seq coll)]
+     (if (pred f)
+       (cons f (take-while+ pred r))
+       [f]))))
+
+(defn get-scenic-score-for-tree [{:keys [trees] :as grid} from-tree]
+  (let [start-tree-height (get-tree-height trees from-tree)]
+    (->> (for [dir [[1 0] [-1 0] [0 1] [0 -1]]]
+           (->> (get-all-positions-in-path grid from-tree dir)
+                (drop 1)
+                (take-while+ #(< (get-tree-height trees %) start-tree-height))))
+         (map count)
+         (apply *))))
+
+(defn get-inner-trees [{[max-x max-y] :size}]
+  (distinct
+   (for [x (range 1 (dec max-x))
+         y (range 1 (dec max-y))]
+     [x y])))
+
+(defn find-maximum-scenic-score [grid]
+  (->> grid
+       (get-inner-trees)
+       (map (partial get-scenic-score-for-tree grid))
+       (apply max)))
+
+(defn day08_2 []
+  (-> "day08_1" read-input find-maximum-scenic-score))
