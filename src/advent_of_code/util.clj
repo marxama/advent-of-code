@@ -9,3 +9,6 @@
 
 (defn split-at-middle [vec]
   (split-at (int (/ (count vec) 2)) vec))
+
+(defn vec+ [& vecs]
+  (apply mapv + vecs))
