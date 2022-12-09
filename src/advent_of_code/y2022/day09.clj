@@ -2,18 +2,19 @@
   (:require [advent-of-code.util :as util]))
 
 (defn parse-input-line [line]
-  (let [[dir steps] (.split line " ")]
-    {:steps (Integer/parseInt steps)
-     :dir (case dir
-            "R" [1 0]
-            "L" [-1 0]
-            "U" [0 1]
-            "D" [0 -1])}))
+  (let [[dir steps] (.split line " ")
+        steps (Integer/parseInt steps)
+        dir (case dir
+              "R" [1 0]
+              "L" [-1 0]
+              "U" [0 1]
+              "D" [0 -1])]
+    (repeat steps dir)))
 
 (defn read-input [f]
   (->> f
        util/read-resource-lines
-       (map parse-input-line)))
+       (mapcat parse-input-line)))
 
 (defn adjacent? [[ax ay] [bx by]]
   (and (<= -1 (- ax bx) 1)
@@ -29,25 +30,33 @@
   [(clamp-magnitude-to-1 (- head-x tail-x))
    (clamp-magnitude-to-1 (- head-y tail-y))])
 
-(defn move-tail [head tail]
+(defn follow [head tail]
   (if (adjacent? head tail)
     tail
     (util/vec+ tail (get-tail-move-dir head tail))))
 
-(defn walk [{:keys [head tail tail-visited]} dir]
-  (let [new-head (util/vec+ head dir)
-        new-tail (move-tail new-head tail)]
-    {:head new-head
-     :tail new-tail
-     :tail-visited (conj tail-visited new-tail)}))
+(defn walk [[head & remaining-rope] dir]
+  (reduce (fn [result rope-piece]
+            (conj result (follow (last result) rope-piece)))
+          [(util/vec+ head dir)]
+          remaining-rope))
 
-(defn walk-all [steps]
-  (->> steps
-       (reduce (fn [state {:keys [dir steps]}]
-                 (->> (iterate #(walk % dir) state)
-                      (take (inc steps))
-                      last))
-               {:head [0 0] :tail [0 0] :tail-visited #{[0 0]}})))
+(defn init-rope [length]
+  (repeat length [0 0]))
+
+(defn walk-all [rope steps]
+  (reductions walk rope steps))
+
+(defn count-tail-visited [f rope-length]
+  (->> f
+       read-input
+       (walk-all (init-rope rope-length))
+       (map last)
+       distinct
+       count))
 
 (defn day09_1 []
-  (-> "day09_1" read-input walk-all :tail-visited count))
+  (count-tail-visited "day09_example_1" 2))
+
+(defn day09_2 []
+  (count-tail-visited "day09" 10))
