@@ -25,12 +25,6 @@
       util/read-resource-lines
       calculate-password))
 
-(defn sign [x]
-  (cond
-    (pos? x) 1
-    (neg? x) -1
-    :else 0))
-
 (defn turn-all-0x434C49434B [initial rotations]
   (reductions
    (fn [[position _] rotation]
@@ -52,6 +46,6 @@
        (apply +)))
 
 (defn day01_2 []
-  (-> "y2025/day01_example"
+  (-> "y2025/day01_"
       util/read-resource-lines
       calculate-password-0x434C49434B))
