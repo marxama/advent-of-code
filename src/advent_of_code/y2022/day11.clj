@@ -72,7 +72,7 @@
          (apply *))))
 
 (defn day11_1 []
-  (count-inspections-per-monkey (read-input "day11") 20 true))
+  (count-inspections-per-monkey (read-input "y2022/day11") 20 true))
 
 (defn day11_2 []
-  (count-inspections-per-monkey (read-input "day11") 10000 false))
+  (count-inspections-per-monkey (read-input "y2022/day11") 10000 false))

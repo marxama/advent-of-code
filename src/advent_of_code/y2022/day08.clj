@@ -75,7 +75,7 @@
        count))
 
 (defn day08_1 []
-  (-> "day08_1" read-input count-visible-trees))
+  (-> "y2022/day08_1" read-input count-visible-trees))
 
 ;; Courtesy of https://stackoverflow.com/a/30928487/845595
 (defn take-while+
@@ -108,4 +108,4 @@
        (apply max)))
 
 (defn day08_2 []
-  (-> "day08_1" read-input find-maximum-scenic-score))
+  (-> "y2022/day08_1" read-input find-maximum-scenic-score))

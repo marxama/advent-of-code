@@ -65,7 +65,7 @@
        (reduce +)))
 
 (defn day02_1 []
-  (apply-strategy-guide-1 "day02_1"))
+  (apply-strategy-guide-1 "y2022/day02_1"))
 
 
 
@@ -90,4 +90,4 @@
        (reduce +)))
 
 (defn day02_2 []
-  (apply-strategy-guide-2 "day02_1"))
+  (apply-strategy-guide-2 "y2022/day02_1"))

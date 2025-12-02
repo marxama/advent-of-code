@@ -30,7 +30,7 @@
        count))
 
 (defn day04_1 []
-  (count-fully-overlapping-pairs "day04_1"))
+  (count-fully-overlapping-pairs "y2022/day04_1"))
 
 (defn overlap? [[[a-from a-to :as a] [b-from b-to :as b]]]
   (->> [[a-from b]
@@ -48,4 +48,4 @@
        count))
 
 (defn day04_2 []
-  (count-overlapping-pairs "day04_1"))
+  (count-overlapping-pairs "y2022/day04_1"))

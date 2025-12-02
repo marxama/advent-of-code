@@ -11,7 +11,7 @@
        (+ char-count)))
 
 (defn day06_1 []
-  (-> "day06_1" util/read-resource (start-of-marker-count 4)))
+  (-> "y2022/day06_1" util/read-resource (start-of-marker-count 4)))
 
 (defn day06_2 []
-  (-> "day06_1" util/read-resource (start-of-marker-count 14)))
+  (-> "y2022/day06_1" util/read-resource (start-of-marker-count 14)))

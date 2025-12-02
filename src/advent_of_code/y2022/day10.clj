@@ -28,7 +28,7 @@
        (map #(signal-strength-during states %))))
 
 (defn day10_1 []
-  (->> "day10"
+  (->> "y2022/day10"
        read-input
        execute-cpu
        get-signal-strengths
@@ -45,7 +45,7 @@
     (println line)))
 
 (defn day10_2 []
-  (->> "day10"
+  (->> "y2022/day10"
        read-input
        execute-cpu
        execute-screen))

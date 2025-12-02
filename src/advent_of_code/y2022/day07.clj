@@ -51,7 +51,7 @@
        (apply +)))
 
 (defn day07_1 []
-  (sum-dirs-with-total-size-not-larger-than (read-input "day07_1") 100000))
+  (sum-dirs-with-total-size-not-larger-than (read-input "y2022/day07_1") 100000))
 
 
 (defn find-smallest-dir-not-smaller-than [filesystem min-size]
@@ -67,4 +67,4 @@
     (:total-size (find-smallest-dir-not-smaller-than filesystem missing-disk-space))))
 
 (defn day07_2 []
-  (find-smallest-dir-to-free-up-space (read-input "day07_1") 70000000 30000000))
+  (find-smallest-dir-to-free-up-space (read-input "y2022/day07_1") 70000000 30000000))

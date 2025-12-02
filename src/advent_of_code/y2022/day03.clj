@@ -43,7 +43,7 @@
   (->> f read-rucksacks-file sum-of-priorities-of-common-item-types))
 
 (defn day03_1 []
-  (sum-of-priorities-of-common-item-types-for-file "day03_1"))
+  (sum-of-priorities-of-common-item-types-for-file "y2022/day03_1"))
 
 
 (defn partition-groups [rucksacks]
@@ -76,4 +76,4 @@
   (->> f read-rucksacks-file sum-of-priorities-of-group-badges))
 
 (defn day03_2 []
-  (sum-of-priorities-of-group-badges-for-file "day03_1"))
+  (sum-of-priorities-of-group-badges-for-file "y2022/day03_1"))

@@ -56,7 +56,7 @@
        count))
 
 (defn day09_1 []
-  (count-tail-visited "day09_example_1" 2))
+  (count-tail-visited "y2022/day09_example_1" 2))
 
 (defn day09_2 []
-  (count-tail-visited "day09" 10))
+  (count-tail-visited "y2022/day09" 10))

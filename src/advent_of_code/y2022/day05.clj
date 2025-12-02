@@ -52,7 +52,7 @@
     (get-top-crates-str (reduce #(operate-crane %1 %2 keep-order?) stacks moves))))
 
 (defn day05_1 []
-  (read-file-and-apply-moves "day05_1" false))
+  (read-file-and-apply-moves "y2022/day05_1" false))
 
 (defn day05_2 []
-  (read-file-and-apply-moves "day05_1" true))
+  (read-file-and-apply-moves "y2022/day05_1" true))

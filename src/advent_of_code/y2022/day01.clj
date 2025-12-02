@@ -14,13 +14,13 @@
   (map (partial apply +) elf-food-calories))
 
 (defn day01_1 []
-  (->> "day01_1"
+  (->> "y2022/day01_1"
        read-elf-food-calories
        accumulate-food-calories-per-elf
        (apply max)))
 
 (defn day01_2 []
-  (->> "day01_1"
+  (->> "y2022/day01_1"
        read-elf-food-calories
        accumulate-food-calories-per-elf
        sort
