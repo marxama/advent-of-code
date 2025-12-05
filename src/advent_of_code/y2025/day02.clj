@@ -5,16 +5,15 @@
   (let [repetitions (/ (count s) n)]
     (= s (apply str (repeat repetitions (subs s 0 n))))))
 
-(defn invalid? [d]
+(defn invalid? [d part1?]
   (let [s (str d)
         length (count s)
         half-length (quot length 2)]
-    (and (even? length)
-         (repeats? s half-length))
-    ;; I misread it first as "check for any repeating pattern"
-    ;; - that might come in part 2, so leaving it here for now...
-    #_(->> (range 1 (inc half-length))
-         (some #(repeats? s %)))))
+    (if part1?
+      (and (even? length)
+           (repeats? s half-length))
+      (->> (range 1 (inc half-length))
+           (some #(repeats? s %))))))
 
 (defn parse-input [f]
   (->> (.split (util/read-resource f) ",")
@@ -22,12 +21,15 @@
        (map (fn [num-strs] (mapv #(Long/parseLong %) num-strs)))
        (map (fn [[start end]] (range start (inc end))))))
 
-(defn get-invalid-product-ids [f]
+(defn get-invalid-product-ids [f part1?]
   ;; Could easily prune items here. Performance is good enough for now, but might come back to this later.
   (->> f
        parse-input
        (apply concat)
-       (filter invalid?)))
+       (filter #(invalid? % part1?))))
 
 (defn day02_1 []
-  (apply + (get-invalid-product-ids "y2025/day02")))
+  (apply + (get-invalid-product-ids "y2025/day02" true)))
+
+(defn day02_2 []
+  (apply + (get-invalid-product-ids "y2025/day02" false)))
