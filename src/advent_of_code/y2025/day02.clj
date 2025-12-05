@@ -5,16 +5,15 @@
   (let [repetitions (/ (count s) n)]
     (= s (apply str (repeat repetitions (subs s 0 n))))))
 
-(defn invalid? [d]
+(defn invalid? [d part1?]
   (let [s (str d)
         length (count s)
         half-length (quot length 2)]
-    (and (even? length)
-         (repeats? s half-length))
-    ;; I misread it first as "check for any repeating pattern"
-    ;; - that might come in part 2, so leaving it here for now...
-    #_(->> (range 1 (inc half-length))
-         (some #(repeats? s %)))))
+    (if part1
+      (and (even? length)
+           (repeats? s half-length))
+      (->> (range 1 (inc half-length))
+           (some #(repeats? s %))))))
 
 (defn parse-input [f]
   (->> (.split (util/read-resource f) ",")
