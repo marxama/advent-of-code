@@ -46,3 +46,15 @@
   (-> (read-input)
        (mark-accessible-paper-rolls)
        (count-accessible-paper-rolls)))
+
+(defn day04_2 []
+  (let [grid (read-input)]
+    (->> [grid true]
+         (iterate (fn [[grid keep-going?]]
+                    (let [updated-grid (mark-accessible-paper-rolls grid)]
+                      [updated-grid (not= (count-accessible-paper-rolls grid)
+                                          (count-accessible-paper-rolls updated-grid))])))
+         (take-while second)
+         last
+         first
+         count-accessible-paper-rolls)))
