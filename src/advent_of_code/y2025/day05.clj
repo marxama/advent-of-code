@@ -21,3 +21,23 @@
     (->> ingredient-ids
          (filter #(fresh? fresh-ranges %))
          count)))
+
+(defn merge-ranges [fresh-ranges]
+  (loop [[a b :as sorted-ranges] (sort-by :from fresh-ranges)
+         merged-ranges []]
+    (cond
+      (not a) merged-ranges
+      (not b) (conj merged-ranges a)
+      (<= (:from b) (:to a)) (recur (cons {:from (:from a)
+                                           :to (max (:to a) (:to b))}
+                                        (drop 2 sorted-ranges))
+                           merged-ranges)
+      :else (recur (rest sorted-ranges)
+             (conj merged-ranges a)))))
+
+(defn day05_2 []
+  (let [{:keys [fresh-ranges]} (parse-input)
+        merged-ranges (merge-ranges fresh-ranges)]
+    (->> merged-ranges
+         (map (fn [{:keys [from to]}] (inc (- to from))))
+         (apply +))))
